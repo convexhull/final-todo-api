@@ -36,4 +36,4 @@ User.findById(id).then( (user) => {
     console.log(JSON.stringify(user,undefined,2));
 }).catch( (e) => {
     console.log(e);
-})
+}); 
