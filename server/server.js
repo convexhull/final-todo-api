@@ -25,4 +25,6 @@ app.listen(3000, ()=>{
     console.log('Server up and running on Port 3000');
 });
 
+module.exports = {app};
+
 
