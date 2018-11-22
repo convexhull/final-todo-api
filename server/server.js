@@ -11,6 +11,8 @@ var {User} = require('./models/user') ;
 var {authenticate} = require('./middleware/authenticate');
 var app = express();
 
+console.log(typeof new ObjectID());
+
 const port = process.env.PORT ;
 
 app.use(bodyParser.json());
