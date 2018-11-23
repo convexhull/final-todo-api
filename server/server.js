@@ -11,7 +11,7 @@ var {User} = require('./models/user') ;
 var {authenticate} = require('./middleware/authenticate');
 var app = express();
 
-console.log(typeof new ObjectID());
+
 
 const port = process.env.PORT ;
 
@@ -98,10 +98,10 @@ app.post('/users' , (req,res) => {                                              
     user.save().then( () => {
         return user.generateAuthToken();
     }).then( (token) => {
-        res.header( 'x-auth',token ).send(user);
-    }).catch( (e) => {
-        res.status(400).send(e);
-    })
+        res.header( 'x-auth',token ).send(user);                // req.header('x-auth)
+    }).catch( (e) => {                                          // res.header('x-auth', token)
+        res.status(400).send(e);                                // res.headers['x-auth'] // coz we are server so no setting req header!
+    });
 });
 
 
@@ -110,7 +110,16 @@ app.get('/users/me' , authenticate , (req,res) => {
    res.send(req.user);
 });
 
-
+app.post('/users/login', (req, res) => {
+    var body = _.pick(req.body, ['email', 'password']);
+    User.findByCredentials(body.email, body.password).then( (user) =>{
+        return user.generateAuthToken().then( (token) => {
+            res.header('x-auth',token).send(user);
+        });
+    }).catch( (e) => {
+        res.status(400).send();
+    });
+}); 
 
 app.listen(port, ()=> {
     console.log(`Server up and running on Port ${port}`);
