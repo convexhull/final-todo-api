@@ -50,6 +50,15 @@ UserSchema.methods.generateAuthToken = function() {              //UserSchema.me
     });                                                        // the success case of the then call takes that returned value. 
 };
 
+UserSchema.methods.removeToken = function(token)    {
+    var user = this;
+    return user.update({                                        // doc.update() family of functions in mongodbnative !!!
+        $pull : {
+            tokens : {token}
+        }
+    });
+};
+
 UserSchema.statics.findByToken = function(token) {                  // statics is obj, attached func are model methods
     var User = this;
     var decoded;
