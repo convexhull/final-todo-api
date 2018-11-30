@@ -24,13 +24,15 @@ const users = [{
 const todos = [ 
     {
         _id : new ObjectID(),
-        text : 'Wish Birthday'
+        text : 'Wish Birthday',
+        _creator : userOneId
     },
     {
         _id : new ObjectID(),
         text : 'Wake up',
-        completed : true,
-        completedAt : 123
+        completed : true, 
+        completedAt : 123,
+        _creator : userTwoId
     }
 ];
 
